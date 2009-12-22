@@ -67,20 +67,20 @@ names = {}
 
 ## Built-in Functions
 
-def cons(lst):
-    return [lst[0]] + lst[1]
-
-def concat(lst):
-    return lst[0] + lst[1]
-
-def _list(lst):
-    return lst
-
 def car(lst):
     return lst[0][0]
 
 def cdr(lst):
     return lst[0][1:]
+
+def _list(lst):
+    return lst
+
+def cons(lst):
+    return [lst[0]] + lst[1]
+
+def concat(lst):
+    return lst[0] + lst[1]
 
 def eq(lst):
     return lst[0] == lst[1]
@@ -102,21 +102,52 @@ def minus(lst):
     return -lst[0]
 
 def _print(lst):
-    print lisp_str(lst[0])
+    print scheme_string(lst[0])
 
-names['cons']   = cons
-names['concat'] = concat
-names['list']   = _list
-names['car']    = car
-names['cdr']    = cdr
-names['eq']     = eq
-names['=']      = eq
-names['and']    = _and
-names['or']     = _or
-names['cond']   = cond
-names['+']      = add
-names['-']      = minus
-names['print']  = _print
+def _sort(lst):
+    lst[0].sort()
+    return lst
+
+def _reverse(lst):
+    lst[0].reverse()
+    return lst
+
+def _length(lst):
+    return len(lst[0])
+
+def flatten(lst):
+    flat_list = []
+    for item in lst:
+        if hasattr(item, "__iter__") and \
+                not isinstance(item, basestring):
+            flat_list.extend(flatten(item))
+        else:
+            flat_list.append(item)
+    return flat_list
+
+
+# Map Built-in function to python function
+
+names['cons']    = cons
+names['concat']  = concat
+names['list']    = _list
+names['car']     = car
+names['cdr']     = cdr
+names['equals']  = eq
+names['eq']      = eq
+names['=']       = eq
+names['and']     = _and
+names['or']      = _or
+names['cond']    = cond
+names['+']       = add
+names['-']       = minus
+names['print']   = _print
+names['flatten'] = flatten
+names['sort']    = _sort
+names['reverse'] = _reverse
+names['length']  = _length
+names['len']     = _length
+names['size']    = _length
 
 #  Evaluation functions
 
@@ -148,16 +179,16 @@ def eval_lists(l):
 # Utilities functions
 
 def is_list(l):
-    return type(l) == type([]) # CHANGE
+    return type(l) == list
 
-def lisp_str(l):
+def scheme_string(l):
     if type(l) == type([]):
         if not l:
             return "()"
         r = "("
         for i in l[:-1]:
-            r += lisp_str(i) + " "
-        r += lisp_str(l[-1]) + ")"
+            r += scheme_string(i) + " "
+        r += scheme_string(l[-1]) + ")"
         return r
     elif l is True:
         return "#t"
@@ -304,12 +335,7 @@ def main(argv):
                       help="read input from a prompt")
 
     (options, args) = parser.parse_args()
-
-#     if options.prompt:
-#         read_prompt()
-#     else:
-#         parser.print_help
-
+ 
     if options.prompt and options.filename:
         parser.error("Prompt and filename are mutually exclusive")
     elif not options.prompt and not options.filename:
