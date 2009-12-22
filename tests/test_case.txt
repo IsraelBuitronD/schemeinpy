@@ -29,3 +29,6 @@
 (length '(9 8 7 6 5 4 3 2 1 0))
 (len '(9 8 7 6 5 4 3 2 1 0))
 (size '(9 8 7 6 5 4 3 2 1 0))
+(floor 1)
+(ceil 1)
+(factorial 5)

@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import sys
+import math
 from optparse import OptionParser
 sys.path.insert(0,"../..")
 
@@ -125,29 +126,53 @@ def flatten(lst):
             flat_list.append(item)
     return flat_list
 
+def _ceil(lst):
+    if(type(lst[0])==float or 
+       type(lst[0])==int or 
+       type(lst[0])==long):
+        return math.ceil(lst[0])
+    print "Number expected but found", type(lst[0])
 
-# Map Built-in function to python function
+def _floor(lst):
+    if(type(lst[0])==float or 
+       type(lst[0])==int or 
+       type(lst[0])==long):
+        return math.floor(lst[0])
+    print "Number expected but found", type(lst[0])
 
-names['cons']    = cons
-names['concat']  = concat
-names['list']    = _list
-names['car']     = car
-names['cdr']     = cdr
-names['equals']  = eq
-names['eq']      = eq
-names['=']       = eq
-names['and']     = _and
-names['or']      = _or
-names['cond']    = cond
-names['+']       = add
-names['-']       = minus
-names['print']   = _print
-names['flatten'] = flatten
-names['sort']    = _sort
-names['reverse'] = _reverse
-names['length']  = _length
-names['len']     = _length
-names['size']    = _length
+def _factorial(lst):
+    if(type(lst[0])==float or 
+       type(lst[0])==int or 
+       type(lst[0])==long):
+        return math.factorial(lst[0])
+    print "Number expected but found", type(lst[0])
+
+
+## Map Built-in function to python function
+
+names['cons']      = cons
+names['concat']    = concat
+names['list']      = _list
+names['car']       = car
+names['cdr']       = cdr
+names['equals']    = eq
+names['eq']        = eq
+names['=']         = eq
+names['and']       = _and
+names['or']        = _or
+names['cond']      = cond
+names['+']         = add
+names['-']         = minus
+names['print']     = _print
+names['flatten']   = flatten
+names['sort']      = _sort
+names['reverse']   = _reverse
+names['length']    = _length
+names['len']       = _length
+names['size']      = _length
+names['floor']     = _floor
+names['ceil']      = _ceil
+names['factorial'] = _factorial
 
 #  Evaluation functions
 
