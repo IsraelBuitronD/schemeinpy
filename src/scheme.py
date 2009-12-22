@@ -9,7 +9,6 @@ tokens = (
     'QUOTE', 
     'SYMBOL', 
     'NUMBER', 
-    'EQUALS', 
     'LPAREN', 'RPAREN',
     'NIL', 
     'TRUE', 'FALSE', 
@@ -26,7 +25,6 @@ t_RPAREN =  r'\)'
 t_QUOTE  =  r'\''
 t_TRUE   =  r'\#t'
 t_FALSE  =  r'\#f'
-t_EQUALS = ur'='
 
 def t_NUMBER(t):
     ur'\d+'
@@ -46,6 +44,10 @@ def t_TEXT(t):
     r'\'[a-zA-Z0-9_+\*\- :,]*\''
     t.type = reserved.get(t.value,'TEXT')
     return t
+
+def t_COMMENT(t):
+    r'^\#.*'
+    pass
 
 def t_newline(t):
     ur'\n+'
@@ -127,23 +129,17 @@ def flatten(lst):
     return flat_list
 
 def _ceil(lst):
-    if(type(lst[0])==float or 
-       type(lst[0])==int or 
-       type(lst[0])==long):
+    if(type(lst[0]) in [int,long,float]):
         return math.ceil(lst[0])
     print "Number expected but found", type(lst[0])
 
 def _floor(lst):
-    if(type(lst[0])==float or 
-       type(lst[0])==int or 
-       type(lst[0])==long):
+    if(type(lst[0]) in [int,long,float]):
         return math.floor(lst[0])
     print "Number expected but found", type(lst[0])
 
 def _factorial(lst):
-    if(type(lst[0])==float or 
-       type(lst[0])==int or 
-       type(lst[0])==long):
+    if(type(lst[0]) in [int,long,float]):
         return math.factorial(lst[0])
     print "Number expected but found", type(lst[0])
 
