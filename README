@@ -1,0 +1,35 @@
+Description
+===========
+
+SchemeInPy is an scheme style interpreter with a pure Python
+implementation (using PLY).
+
+Get the project
+===============
+
+SchemeInPy is mounted into a Git repository, you can get a clone with
+this url:
+
+     git://github.com/neoriddle/schemeinpy.git
+
+ToDo List and Pendings
+======================
+
+Here is a list of pending features and some detected-reported errors.
+
+- Check and correct float numbers support.
+- Check and correct 'cond' function support.
+
+
+If you detect some error or have SUGGESTIONS or COMMENTS, please BE
+FREE TO CONTACT ME to notify me or if you was to make contributions
+too.
+
+Contact Info
+============
+
+Name	Israel Buitron
+Email	israel.buitron@gmail.com
+	ibuitron@computacion.cs.cinvestav.mx
+Webpage	http://github.com/neoriddle/schemeinpy
+	http://computacion.cs.cinvestav.mx/~ibuitron
