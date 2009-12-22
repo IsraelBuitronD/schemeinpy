@@ -283,20 +283,21 @@ def read_prompt():
             continue
         yacc.parse(unicode(s))
 
-# def read_from_file(filename):
-#     file = open(filename)
-#     lines = file.readlines()
-#     file.close
-#     yacc.parse(unicode(lines))
+def read_from_file(filename):
+    file = open(filename)
+    lines = file.readlines()
+    file.close
+    for line in lines:
+        yacc.parse(line)
 
 def main(argv):
     parser = OptionParser(version="%prog 0.1")
 
-#     parser.add_option("-f", "--file",
-#                       action="store", 
-#                       type="string", 
-#                       dest="filename",
-#                       help="read input from a specific file")
+    parser.add_option("-f", "--file",
+                      action="store", 
+                      type="string", 
+                      dest="filename",
+                      help="read input from a specific file")
     parser.add_option("-p", "--prompt",
                       action="store_true",
                       dest="prompt",
@@ -304,21 +305,19 @@ def main(argv):
 
     (options, args) = parser.parse_args()
 
-    if options.prompt:
-        read_prompt()
-    else:
-        parser.print_help
-
-#     if options.prompt and options.filename:
-#         parser.error("prompt or filename are mutually exclusive")
-#     elif not options.prompt and not options.filename:
-#         parser.error("select either prompt or filename")
-#     elif options.prompt:
-#         print "p"
+#     if options.prompt:
 #         read_prompt()
-#     elif options.filename:
-#         print "f"
-#         read_from_file(option.filename)
+#     else:
+#         parser.print_help
+
+    if options.prompt and options.filename:
+        parser.error("Prompt and filename are mutually exclusive")
+    elif not options.prompt and not options.filename:
+        parser.error("Select either prompt or filename")
+    elif options.prompt:
+        read_prompt()
+    elif options.filename:
+        read_from_file(options.filename)
 
 
 if __name__ == "__main__":
